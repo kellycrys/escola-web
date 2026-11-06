@@ -1,15 +1,16 @@
-import { Column } from "primereact/column"
-import { DataTable } from "primereact/datatable"
+import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
 
 export default function Alunos() {
 
     const alunos = [
-        {matricula:'202601',nome:'Kelly Cristina', dataNasc:'03-09-1990', email:'kelly.estudante@ifg.com'},
-        {matricula:'202602',nome:'Kelly Cristina', dataNasc:'03-09-1990', email:'kelly.estudante@ifg.com'},
-        {matricula:'202603',nome:'Kelly Cristina', dataNasc:'03-09-1990', email:'kelly.estudante@ifg.com'},
+        {matricula:'202601', nome:'Wesley Gomes', dataNasc:'2000-05-06',email:'wesley@email.com'},
+        {matricula:'202602', nome:'Wesley Gomes', dataNasc:'2000-05-06',email:'wesley@email.com'},
+        {matricula:'202603', nome:'Wesley Gomes', dataNasc:'2000-05-06',email:'wesley@email.com'},
     ]
+
     return (
-        <DataTable emptyMessage="Nenhum aluno encontrado."
+        <DataTable emptyMessage="Nenhum aluno encontrado"
         value={alunos}>
             <Column header="Matricula" field="matricula"></Column>
             <Column header="Nome" field="nome"></Column>
