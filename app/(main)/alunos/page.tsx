@@ -2,24 +2,30 @@
 import { api } from "@/lib/axios";
 import { alunoService } from "@/services/aluno-service";
 import { AlunoComRelacoes } from "@/types/escola";
+import { useRouter } from "next/navigation";
+import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Alunos() {
         const [alunos, setAlunos] = useState<AlunoComRelacoes[]>([])
+        const router = useRouter()
+        const buscarAlunos = useCallback(async () => {
+            const alunosApi = await alunoService.listar()
+            setAlunos(alunosApi)
+        }, [])
 
         useEffect( () => {
-
-            async function buscarAlunos () {
-                const alunosApi = await alunoService.listar()
-                setAlunos(alunosApi)
-        }
+            
         buscarAlunos()
-        
-        },[])   
+        },[buscarAlunos])   
 
     return (
+        <div> 
+            <section className="flex justify-content-end">
+                <Button link icon='pi pi-plus' outlined label="Cadastrar alunos" onClick={() => router.push('/alunos/cadastrar')}></Button>
+            </section>
         <DataTable emptyMessage="Nenhum aluno encontrado"
         value={alunos}>
             <Column header="Matricula" field="matricula"></Column>
@@ -28,5 +34,6 @@ export default function Alunos() {
             ></Column>
             <Column header="E-mail" field="email"></Column>
         </DataTable>
+        </div>
     )
 }
