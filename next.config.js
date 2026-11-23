@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
-const apiURL = process.env.NEXT_PUBLIC_API_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 const nextConfig = {
-    async rewrites () {
+    async rewrites() {
         return [
             {
                 source: '/api/:path*',
-                destination: `${apiURL}/:path*`
+                destination: `${apiUrl}/:path*`
             }
         ]
     }
