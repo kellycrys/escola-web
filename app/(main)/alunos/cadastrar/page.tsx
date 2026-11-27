@@ -19,31 +19,41 @@ export default function CadastrarAluno() {
 
     async function salvarAluno(evento: FormEvent<HTMLFormElement>) {
         evento.preventDefault()
+
+        if (!nascimento) {
+            notificacao.current?.show({
+                summary: 'Data de nascimento obrigatória.',
+                severity: 'warn',
+                detail: 'Informe a data de nascimento do aluno.'
+            })
+            return
+        }
+
         setCarregando(true)
         try {
-            const resposta = alunoService.criar({
+            await alunoService.criar({
                 matricula,
                 nome,
                 nascimento,
                 email
             })
             notificacao.current?.show({
-                summary: 'Aluno cadastrado com sucesso.',
+                summary: 'Aluno cadastrado com sucesso!',
                 severity: 'success',
-                detail: 'O aluno foi salvo na base de dados'
+                detail: 'O aluno foi salvo na base de dados.'
             })
-            setMatricula(' ')
-            setNome(' ')
+            setMatricula('')
+            setNome('')
             setNascimento(null)
-            setEmail(' ')
+            setEmail('')
 
             router.push('/alunos')
         } catch (erro) {
             notificacao.current?.show({
                 summary: 'Erro ao cadastrar o aluno.',
                 severity: 'error',
-                detail: erro as string
-            })    
+                detail: String(erro)
+            })
         } finally {
             setCarregando(false)
         }
